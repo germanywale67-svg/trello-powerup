@@ -23,10 +23,26 @@ TrelloPowerUp.initialize({
                 card_id: card.id,
                 card_name: card.name
               })
-            })
-            .then(() => alert('Sent to Jira ✅'))
-            .catch(() => alert('Error ❌'));
+            });
 
+          })
+          .then(function() {
+            return t.popup({
+              title: "Success",
+              items: [{
+                text: "Sent to Jira ✅",
+                callback: function(t) { return t.closePopup(); }
+              }]
+            });
+          })
+          .catch(function() {
+            return t.popup({
+              title: "Error",
+              items: [{
+                text: "Failed ❌",
+                callback: function(t) { return t.closePopup(); }
+              }]
+            });
           });
 
       }
