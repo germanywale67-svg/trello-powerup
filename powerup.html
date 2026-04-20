@@ -6,11 +6,29 @@
 <body>
 <script>
 TrelloPowerUp.initialize({
-  'card-buttons': function() {
+  'card-buttons': function(t) {
     return [{
       text: 'Send to Jira',
-      callback: function() {
-        alert('Working!');
+      callback: function(t) {
+
+        return t.card('id', 'name')
+          .then(function(card) {
+
+            return fetch('https://n8n.boostdy.online/webhook/trello-jira', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                card_id: card.id,
+                card_name: card.name
+              })
+            })
+            .then(() => alert('Sent to Jira ✅'))
+            .catch(() => alert('Error ❌'));
+
+          });
+
       }
     }];
   }
