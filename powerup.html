@@ -1,39 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
 <body>
-
 <script>
 TrelloPowerUp.initialize({
-  'card-buttons': function(t, options) {
+  'card-buttons': function() {
     return [{
-      text: 'Send to Jira',
-      callback: function(t) {
-
-        return t.card('id', 'name')
-          .then(function(card) {
-
-            return fetch('https://n8n.boostdy.online/webhook/trello-jira', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                card_id: card.id,
-                card_name: card.name
-              })
-            })
-            .then(() => t.closePopup())
-            .catch(() => alert('Error calling webhook'));
-
-          });
+      text: 'TEST BUTTON',
+      callback: function() {
+        alert('Working!');
       }
     }];
   }
 });
 </script>
-
 </body>
 </html>
